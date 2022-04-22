@@ -6,13 +6,15 @@ using namespace std;
 class my_cin: public exception 
 { public:
      virtual const char* what() const throw() {
-      if(cin.fail()){ 
         return "Stupid it\'s not a number"; 
-      }
-      else{ 
-        return "Error divide by Zero";
-        }
-     } 
+     }
+}; 
+
+class zero_cin: public exception 
+{ public:
+     virtual const char* what() const throw() { 
+			return "Divided by 0";
+     }
 }; 
 
 
@@ -22,6 +24,7 @@ int main(){
 	int x,y,a; 
 	double d;
   my_cin myex;
+  zero_cin myex_zero;
 
 do{  
   a=0;
@@ -30,8 +33,8 @@ try{
   cout<<"Input 2 numbers:";
  	 cin>>x>>y;
 	if(cin.fail()) throw myex;
-	//if (y==0) throw 0.0;  
-  check0(y);
+	if (y==0) throw myex_zero;  
+  //check0(y);
   
 	d=(double) x/y;
 	cout<< "The result is "<<d<<endl;	
@@ -56,8 +59,11 @@ catch(exception &e){
 	return 0;
 }
 	
-void check0(int n)  {
+/*
+  void check0(int n)  {
   my_cin temp;
-  if(n==0) throw temp;
+  if(n==0) throw n ;
+
   
 }
+*/
